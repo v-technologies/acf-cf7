@@ -185,18 +185,15 @@ class acf_field_cf7 extends acf_field {
 					if(in_array($key, $field['value'])){
 						$selected = 'selected="selected"';
 					}
-					//Disable form selection as required
-					if(in_array(($k+1), $field['disable'])){
-						$selected = 'disabled="disabled"';
-					}
 				}else{
 					// If not a multiple select, just check normaly
 					if($key == $field['value']){
 						$selected = 'selected="selected"';
 					}
-					if(in_array(($k+1), $field['disable'])){
-						$selected = 'disabled="disabled"';
-					}
+				}
+				//Disable form selection as required
+				if (is_array($field['disable']) && in_array(($k+1), $field['disable'])) {
+					$selected = 'disabled="disabled"';
 				}
 				echo '<option value="'.$key.'" '.$selected.'>'.$value.'</option>';
 			}

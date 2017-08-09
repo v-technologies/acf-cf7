@@ -1,5 +1,15 @@
 # ACF Contact Form 7 Field
 
+Fork de https://github.com/taylormsj/acf-cf7 avec un ou deux fixs qui sont en stand-by sur le repo officiel.
+
+
+____________________
+
+
+# README original
+
+# ACF Contact Form 7 Field
+
 Adds a 'Contact Form 7' field type for the [Advanced Custom Fields](http://wordpress.org/extend/plugins/advanced-custom-fields/) WordPress plugin.
 
 -----------------------

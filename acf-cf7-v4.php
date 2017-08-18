@@ -25,7 +25,6 @@ class acf_field_cf7 extends acf_field {
 		$this->defaults = array(
 			'allow_null'	=> 0,
 			'multiple'		=> 0,
-			'disable'		=> ''
 		);
 
 
@@ -64,7 +63,6 @@ class acf_field_cf7 extends acf_field {
 			'allow_null'  =>  0,
 			'default_value' => '',
 			'choices'   =>  '',
-			'disable'   => ''
 		);
 
 		$field = array_merge($defaults, $field);
@@ -108,34 +106,6 @@ class acf_field_cf7 extends acf_field {
 				?>
 			</td>
 		</tr>
-		<tr class="field_option field_option_<?php echo $this->name; ?>">
-			<td class="label">
-				<label><?php _e("Disable Forms?",'acf'); ?></label>
-				<p class="description"><?php _e("User will not be able to select these forms",'acf'); ?></p>
-			</td>
-			<td>
-				<?php
-				//Get form names
-				$forms = get_posts(array('post_type' => 'wpcf7_contact_form', 'orderby' => 'id', 'order' => 'ASC', 'posts_per_page' => -1, 'numberposts' => -1));
-				$choices = array();
-				$choices[0] = '---';
-				$k = 1;
-				foreach($forms as $f){
-					$choices[$k] = $f->post_title;
-					$k++;
-				}
-				do_action('acf/create_field', array(
-					'type'  =>  'select',
-					'name'  =>  'fields['.$key.'][disable]',
-					'value' =>  $field['disable'],
-					'multiple'    =>  '1',
-					'allow_null'  =>  '0',
-					'choices' =>  $choices,
-					'layout'  =>  'horizontal',
-				));
-				?>
-			</td>
-		</tr>
 		<?php
 	}
 
@@ -155,7 +125,6 @@ class acf_field_cf7 extends acf_field {
 	function create_field( $field )
 	{
 		$field['multiple'] = isset($field['multiple']) ? $field['multiple'] : false;
-		$field['disable'] = isset($field['disable']) ? $field['disable'] : false;
 
 		// Add multiple select functionality as required
 		$multiple = '';
@@ -187,17 +156,10 @@ class acf_field_cf7 extends acf_field {
 					if(in_array($key, $field['value'])){
 						$selected = 'selected="selected"';
 					}
-					//Disable form selection as required
-					if(in_array(($k+1), $field['disable'])){
-						$selected = 'disabled="disabled"';
-					}
 				}else{
 					// If not a multiple select, just check normaly
 					if($key == $field['value']){
 						$selected = 'selected="selected"';
-					}
-					if(in_array(($k+1), $field['disable'])){
-						$selected = 'disabled="disabled"';
 					}
 				}
 				echo '<option value="'.$key.'" '.$selected.'>'.$value.'</option>';
